@@ -1,0 +1,44 @@
+.favContainer {
+  height: max-content;
+  padding: 0 0 98px;
+  background-color: #fcfcfc;
+
+  .topBtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 63px;
+    button {
+      width: 140px;
+      height: 35px;
+      padding: 5px 20px;
+      border-radius: 2px;
+      border: solid 1px #1797ff;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+  .myFavContent {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .grid {
+      width: 80%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px 30px;
+      padding: 20px 0px;
+
+      @media screen and(max-width:768px) {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+      }
+    }
+  }
+}

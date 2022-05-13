@@ -1,0 +1,29 @@
+.navBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 63px;
+
+  a {
+    text-decoration: none;
+  }
+  .btn {
+    width: 140px;
+    height: 35px;
+    padding: 5px 20px;
+    border-radius: 2px;
+    border: 1px solid gray;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 400;
+    &.active {
+      border: solid 1px #1797ff;
+      color: #1797ff;
+      font-weight: 500;
+    }
+  }
+}

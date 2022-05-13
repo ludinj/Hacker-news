@@ -1,0 +1,58 @@
+.card {
+  padding: 0 0 0 26px;
+  opacity: 0.8;
+  border-radius: 6px;
+  border: solid 1px #979797;
+  background-color: #fff;
+  height: 90px;
+  display: flex;
+  @media screen and(max-width:1060px) {
+    font-size: 13px;
+    height: 100px;
+  }
+  @media screen and(max-width:768px) {
+    font-size: 13px;
+    height: max-content;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+  .cardContent {
+    flex: 7;
+    padding: 10px;
+    font-weight: 500;
+    line-height: 1.43;
+    letter-spacing: 0.25px;
+    color: #6b6b6b;
+
+    cursor: pointer;
+    .timer {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: #767676;
+      margin-bottom: 10px;
+      font-size: 11px;
+      img {
+        height: 16px;
+        width: 16px;
+        object-fit: contain;
+      }
+    }
+  }
+  .like {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6060603a;
+    cursor: pointer;
+
+    img {
+      width: 24px;
+      height: 22px;
+      object-fit: contain;
+    }
+  }
+}
