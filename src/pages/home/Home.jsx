@@ -6,13 +6,11 @@ import "./home.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spiner from "../../components/spiner/Spiner";
 import NavBtns from "../../components/navButtons/NavBtns";
-import { useSelector } from "react-redux";
 
 const Home = () => {
   const [filter, Setfilter] = useState("");
   const [page, setpage] = useState(0);
   const [posts, setPosts] = useState([]);
-  const myFav = useSelector((state) => state.myFav.myFavData);
   const BASE_URL = "https://hn.algolia.com/api/v1/search_by_date?query=";
   const options = [
     {
@@ -29,7 +27,7 @@ const Home = () => {
     },
   ];
 
-  //sets the initial values to from the local store
+  //sets the initial values from the local store
   useEffect(() => {
     const storedFilter = localStorage.getItem("filter");
     Setfilter(storedFilter);
@@ -44,7 +42,7 @@ const Home = () => {
     };
     fetchData();
   }, []);
-  console.log(posts);
+
   //handles the selected filter
   const handleSelect = async (e) => {
     setpage(0);
