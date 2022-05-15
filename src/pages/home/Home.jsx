@@ -6,12 +6,13 @@ import "./home.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spiner from "../../components/spiner/Spiner";
 import NavBtns from "../../components/navButtons/NavBtns";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [filter, Setfilter] = useState("");
   const [page, setpage] = useState(0);
   const [posts, setPosts] = useState([]);
-
+  const myFav = useSelector((state) => state.myFav.myFavData);
   const BASE_URL = "https://hn.algolia.com/api/v1/search_by_date?query=";
   const options = [
     {
@@ -31,20 +32,10 @@ const Home = () => {
   //sets the initial values to from the local store
   useEffect(() => {
     const storedFilter = localStorage.getItem("filter");
-
     Setfilter(storedFilter);
-  }, []);
-
-  //handles the selected filter
-  const handleSelect = (e) => {
-    setpage(0);
-    Setfilter(e.target.value);
-    localStorage.setItem("filter", e.target.value);
-  };
-  useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}${filter}&page=0`);
+        const res = await axios.get(`${BASE_URL}${storedFilter}&page=0`);
         const data = res.data.hits;
         setPosts(data);
       } catch (error) {
@@ -52,7 +43,21 @@ const Home = () => {
       }
     };
     fetchData();
-  }, [filter]);
+  }, []);
+  console.log(posts);
+  //handles the selected filter
+  const handleSelect = async (e) => {
+    setpage(0);
+    Setfilter(e.target.value);
+    localStorage.setItem("filter", e.target.value);
+    try {
+      const res = await axios.get(`${BASE_URL}${e.target.value}&page=0`);
+      const data = res.data.hits;
+      setPosts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //Loads more post depending on the page while scrolling
   const loadMore = async () => {
