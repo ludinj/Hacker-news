@@ -11,17 +11,8 @@ const Home = () => {
   const [filter, Setfilter] = useState("");
   const [page, setpage] = useState(0);
   const [posts, setPosts] = useState([]);
-  const [favorites, setFavorites] = useState([]);
 
   const BASE_URL = "https://hn.algolia.com/api/v1/search_by_date?query=";
-
-  useEffect(() => {
-    let storedFav = JSON.parse(localStorage.getItem("myFav"));
-    if (storedFav) {
-      setFavorites(storedFav);
-    }
-  }, []);
-
   const options = [
     {
       value: "angular",
@@ -36,18 +27,13 @@ const Home = () => {
       label: "Vuejs",
     },
   ];
-  //sets the local store
+
+  //sets the initial values to from the local store
   useEffect(() => {
-    let storedFav = JSON.parse(localStorage.getItem("myFav"));
-    if (storedFav) {
-      setFavorites(storedFav);
-    }
-  }, []);
-  useEffect(() => {
-    let storedFilter = localStorage.getItem("filter");
-    localStorage.setItem("myFav", JSON.stringify(favorites));
+    const storedFilter = localStorage.getItem("filter");
+
     Setfilter(storedFilter);
-  }, [favorites]);
+  }, []);
 
   //handles the selected filter
   const handleSelect = (e) => {
@@ -119,14 +105,7 @@ const Home = () => {
                 post.story_url &&
                 post.created_at
               ) {
-                return (
-                  <Card
-                    key={i}
-                    post={post}
-                    favorites={favorites}
-                    setFavorites={setFavorites}
-                  />
-                );
+                return <Card key={i} post={post} />;
               } else {
                 return null;
               }

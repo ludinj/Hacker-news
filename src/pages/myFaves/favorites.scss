@@ -33,7 +33,6 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 30px 30px;
       padding: 20px 0px;
-
       @media screen and(max-width:768px) {
         display: flex;
         flex-direction: column;

@@ -3,28 +3,31 @@ import clock2 from "../../images/clock2.png";
 import likeOutline from "../../images/likeOutline.png";
 import likeFill from "../../images/likeFill.png";
 import { useState, useEffect } from "react";
-
-const Card = ({ post, favorites, setFavorites }) => {
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addFav, deleteFav } from "../../redux/myFavSlice";
+const Card = ({ post }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const myFav = useSelector((state) => state.myFav.myFavData);
+  const dispatch = useDispatch();
 
   //handles the like click event
   const handleLike = (e) => {
     e.stopPropagation();
     setIsLiked(!isLiked);
     if (!isLiked) {
-      setFavorites((pre) => [...pre, post]);
-      localStorage.setItem("myFav", JSON.stringify(favorites));
+      localStorage.setItem("myFav", JSON.stringify([...myFav, post]));
+      dispatch(addFav([...myFav, post]));
     } else {
-      setFavorites((pre) =>
-        pre.filter((ele) => ele.objectID !== post.objectID)
-      );
-      localStorage.setItem("myFav", JSON.stringify(favorites));
+      const newFav = myFav.filter((ele) => ele.objectID !== post.objectID);
+      localStorage.setItem("myFav", JSON.stringify(newFav));
+      dispatch(deleteFav(newFav));
     }
   };
   //sets is liked on render
   useEffect(() => {
     let storedFav = JSON.parse(localStorage.getItem("myFav"));
-    storedFav.forEach((fav) => {
+    storedFav?.forEach((fav) => {
       if (fav.objectID === post.objectID) {
         setIsLiked(true);
       }
